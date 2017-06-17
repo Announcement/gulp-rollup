@@ -1,0 +1,10 @@
+{
+  "name": "gulp-rollup",
+  "version": "1.0.0",
+  "description": "A gulp rollup extension good enough for me.",
+  "main": "index.js",
+  "directories": {},
+  "scripts": {},
+  "author": "",
+  "license": "ISC"
+}
