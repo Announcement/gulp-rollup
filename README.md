@@ -28,3 +28,7 @@ gulp.task('rollup', () =>
 
 - no input source-maps
 - input is not tested
+
+## notes
+
+only *valid* rollup options at the time of writing will be passed.
