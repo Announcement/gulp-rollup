@@ -6,7 +6,6 @@ A gulp rollup extension good enough for me.
 
 This is a complete `gulpfile.js` which can be invoked with `gulp rollup`
 
-
 ~~~ javascript
 import gulp from 'gulp'
 import rollup from 'gulp-rollup'
@@ -29,7 +28,3 @@ gulp.task('rollup', () =>
 
 - no input source-maps
 - input is not tested
-
-## notes
-
-version 2 is basically ready, just needs to be compiled.
