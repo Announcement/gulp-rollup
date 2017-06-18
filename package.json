@@ -14,5 +14,9 @@
     "rollup-plugin-memory": "^2.0.0",
     "through2": "^2.0.3",
     "vinyl-sourcemaps-apply": "^0.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2"
   }
 }

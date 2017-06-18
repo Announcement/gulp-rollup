@@ -3,7 +3,6 @@ var rollup = require('rollup')
 var memory = require('rollup-plugin-memory')
 var sourcemap = require('vinyl-sourcemaps-apply')
 var util = require('gulp-util')
-var query = require('./query')
 
 // all options in rollup.rollup({options})
 // all options in bundle.generate({options})
@@ -42,6 +41,25 @@ export default function (options) {
 
   let exists = it => it !== undefined && it !== null
 
+
+  function select () {
+    var parameters
+
+    parameters = Array.prototype.slice.call(arguments, 0)
+
+    return function (it) {
+      var object
+
+      object = {}
+
+      parameters.forEach(key => {
+        object[key] = it[key]
+      })
+
+      return object
+    }
+  }
+
   function onwarn (it) {
     // util.log(it)
   }
@@ -71,7 +89,7 @@ export default function (options) {
       ]
     }
 
-    possible = query.select(
+    possible = select(
       'entry',
       'cache',
       'external',
@@ -107,7 +125,7 @@ export default function (options) {
     }
 
     // list of possible properties
-    possible = query.select(
+    possible = select(
       'format',
       'exports',
       'moduleId',
