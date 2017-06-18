@@ -1,8 +1,8 @@
-var through = require('through2')
-var rollup = require('rollup')
-var memory = require('rollup-plugin-memory')
-var sourcemap = require('vinyl-sourcemaps-apply')
-var util = require('gulp-util')
+import through from 'through2'
+import rollup from 'rollup'
+import memory from 'rollup-plugin-memory'
+import sourcemap from 'vinyl-sourcemaps-apply'
+import util from 'gulp-util'
 
 // all options in rollup.rollup({options})
 // all options in bundle.generate({options})

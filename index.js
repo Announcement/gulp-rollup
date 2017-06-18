@@ -53,7 +53,7 @@ exports.default = function (options) {
       },
       cache: cache[it.path],
       onwarn: onwarn,
-      plugins: [memory()]
+      plugins: [(0, _rollupPluginMemory2.default)()]
     };
 
     possible = select('entry', 'cache', 'external', 'paths', 'onwarn', 'plugins', 'treeshake', 'acorn', 'context', 'moduleContext', 'legacy');
@@ -86,7 +86,7 @@ exports.default = function (options) {
 
   cache = {};
 
-  return through.obj(obj
+  return _through2.default.obj(obj
 
   /**
    * The through2 object pipe generator.
@@ -105,7 +105,7 @@ exports.default = function (options) {
     configuration.rollup = getRollupConfiguration(file);
     configuration.generate = getGenerateConfiguration(file);
 
-    rollup.rollup(configuration.rollup).then(compile).catch(error
+    _rollup2.default.rollup(configuration.rollup).then(compile).catch(error
 
     /**
      * Catch the error and push it down the pipeline.
@@ -117,7 +117,7 @@ exports.default = function (options) {
     );function error(it) {
       var error;
 
-      error = new util.PluginError('rollup-stream', it.message);
+      error = new _gulpUtil2.default.PluginError('rollup-stream', it.message);
 
       callback(error);
     }
@@ -140,7 +140,7 @@ exports.default = function (options) {
        * @param {Object} it - Sourcemap.
        */
       var trace = function trace(it) {
-        return exists(it) && sourcemap(file, it);
+        return exists(it) && (0, _vinylSourcemapsApply2.default)(file, it);
       };
 
       result = bundle.generate(configuration.generate);
@@ -168,42 +168,24 @@ exports.default = function (options) {
    */
 };
 
-var through = require('through2');
-var rollup = require('rollup');
-var memory = require('rollup-plugin-memory');
-var sourcemap = require('vinyl-sourcemaps-apply');
-var util = require('gulp-util'
+var _through = require('through2');
 
-// all options in rollup.rollup({options})
-// all options in bundle.generate({options})
-//
-// sourcemaps out are supported, sourcemaps in are not
-// included files probably won't bump on watch.
-//
-// rollup.rollup has the following defaults that deviate from stock
-//  - entry-point comes from vinyl
-//  - cache is set to a local cache object inside the function per filename
-//  - onwarn is set to an empty function
-//  - plugins are loaded by default
-//
-// plugins loaded by default (to allow a vinyl entry point)
-//  - memory()
-//
-// bundle.generate has an extra default
-//  - format is now common js
-//
-// disclaimer:
-//  this file might be a bit *over* formatted and verbose
-//  few things aren't dry (the generators particularly)
-//  but over all the code should very readable and relatively easy to maintain
+var _through2 = _interopRequireDefault(_through);
 
-/**
- * Generates a gulp-rollup pipeline.
- *
- * @function rollup
- *
- * @param {Object} options - Piped properly to rollup.rollup & bundle.generate.
- *
- * @returns {Stream} Ready for gulp.
- */
-);
+var _rollup = require('rollup');
+
+var _rollup2 = _interopRequireDefault(_rollup);
+
+var _rollupPluginMemory = require('rollup-plugin-memory');
+
+var _rollupPluginMemory2 = _interopRequireDefault(_rollupPluginMemory);
+
+var _vinylSourcemapsApply = require('vinyl-sourcemaps-apply');
+
+var _vinylSourcemapsApply2 = _interopRequireDefault(_vinylSourcemapsApply);
+
+var _gulpUtil = require('gulp-util');
+
+var _gulpUtil2 = _interopRequireDefault(_gulpUtil);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
