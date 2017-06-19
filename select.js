@@ -1,4 +1,4 @@
-module.export = function () {
+module.exports = function () {
   var parameters
 
   parameters = Array.prototype.slice.call(arguments, 0)
