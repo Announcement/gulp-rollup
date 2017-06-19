@@ -11,7 +11,7 @@ const select = require('./select')
  *
  * @returns {Object} Configuration for use with rollup.
  */
-module.exports = function (it) {
+module.exports = function (it, cache) {
   var defaults
   var possible
 

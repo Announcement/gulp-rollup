@@ -62,8 +62,10 @@ module.exports = function (options) {
 
     configuration = {}
 
-    configuration.rollup = getRollupConfiguration(file)
+    configuration.rollup = getRollupConfiguration(file, cache)
     configuration.generate = getGenerateConfiguration(file)
+
+    console.log(file)
 
     rollup
       .rollup(configuration.rollup)
