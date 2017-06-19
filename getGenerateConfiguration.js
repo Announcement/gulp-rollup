@@ -22,7 +22,7 @@ module.exports = function (it, options) {
   }
 
   // list of possible properties
-  possible = select(
+  possible = select([
     'format',
     'exports',
     'moduleId',
@@ -34,7 +34,7 @@ module.exports = function (it, options) {
     'sourceMap',
     'sourceMapFile',
     'useStrict'
-  )
+  ])
 
   return Object.assign(defaults, possible(options))
 }

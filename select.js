@@ -6,15 +6,11 @@
  * @version 1.0.0
  * @variation 2
  *
- * @param {string} it - Properties to pull from each object.
+ * @param {Array.<String>} it - Properties to pull from each object.
  *
  * @returns {Function} A callback function for reducing objects to similar objects with only specified properties.
  */
-module.exports = function () {
-  var parameters
-
-  parameters = Array.prototype.slice.call(arguments, 0)
-
+module.exports = function (parameters) {
   return function (it) {
     var object
 

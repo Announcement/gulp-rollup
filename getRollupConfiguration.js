@@ -38,7 +38,7 @@ module.exports = function (it, cacheObject, options) {
     plugins
   }
 
-  possible = select(
+  possible = select([
     'entry',
     'cache',
     'external',
@@ -50,12 +50,27 @@ module.exports = function (it, cacheObject, options) {
     'context',
     'moduleContext',
     'legacy'
-  )
+  ])
 
-  object = Object.assign(defaults, options)
-
-  // console.log(object)
-  // console.log(possible(object))
+  assign()
+  repair()
 
   return possible(object)
+
+  function assign () {
+    object = Object.assign(defaults, options)
+  }
+
+  function repair () {
+    repairEntry()
+    repairPlugins()
+  }
+
+  function repairEntry () {
+    object.entry = entry
+  }
+
+  function repairPlugins () {
+    object.plugins = plugins.concat(options.plugins || [])
+  }
 }

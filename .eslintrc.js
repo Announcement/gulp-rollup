@@ -3,9 +3,12 @@ module.exports = {
     es6: true
   },
 
-  extends: ['standard'],
+  extends: 'standard',
 
-  plugins: ['standard', 'promise'],
+  plugins: [
+    'standard',
+    'promise'
+  ],
 
   rules: {
     'max-len': [2, { code: 80, ignoreComments: true }],
