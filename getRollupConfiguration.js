@@ -12,7 +12,7 @@ const select = require('./select')
  *
  * @returns {Object} Configuration for use with rollup.
  */
-module.exports = function (it, cache) {
+module.exports = function (it, cache, options) {
   var defaults
   var possible
 
