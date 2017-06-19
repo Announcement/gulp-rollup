@@ -41,6 +41,8 @@ gulp.task('rollup', () =>
 - defaults deviate from the main [rollup](https://github.com/rollup/rollup) module slightly.
 - sourcemaps out are supported, sourcemaps in are not.
 - included files probably won't bump on watch.
+- entry **will** be over written, and there is nothing you can do about it
+- memory plugin can not be removed.
 
 ## deviations from rollup
 
@@ -56,10 +58,18 @@ gulp.task('rollup', () =>
 
 ### bundle.generate()
 
-- **format** is now `cjs`
+- **format** is now `umd`
 
 ## disclaimer
 
 -  this module's code might be a bit *over* formatted and verbose
 -  few things aren't **D.R.Y.** (the generators particularly)
 -  but over all the code should very *readable* and _relatively easy_ to maintain
+
+## changelog
+
+> ###  v3.2.0
+>
+> - internal select function now takes an array instead of a splat.
+> - **entry** is now forced
+> - **memory** is now forced
