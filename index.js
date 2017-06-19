@@ -1,37 +1,68 @@
-'use strict';
+const through = require('through2')
+const rollup = require('rollup')
+const memory = require('rollup-plugin-memory')
+const sourcemap = require('vinyl-sourcemaps-apply')
+const util = require('gulp-util')
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+// all options in rollup.rollup({options})
+// all options in bundle.generate({options})
+//
+// sourcemaps out are supported, sourcemaps in are not
+// included files probably won't bump on watch.
+//
+// rollup.rollup has the following defaults that deviate from stock
+//  - entry-point comes from vinyl
+//  - cache is set to a local cache object inside the function per filename
+//  - onwarn is set to an empty function
+//  - plugins are loaded by default
+//
+// plugins loaded by default (to allow a vinyl entry point)
+//  - memory()
+//
+// bundle.generate has an extra default
+//  - format is now common js
+//
+// disclaimer:
+//  this file might be a bit *over* formatted and verbose
+//  few things aren't dry (the generators particularly)
+//  but over all the code should very readable and relatively easy to maintain
 
-exports.default = function (options) {
-  var cache;
+ /**
+  * Generates a gulp-rollup pipeline.
+  *
+  * @function rollup
+  *
+  * @param {Object} options - Piped properly to rollup.rollup & bundle.generate.
+  *
+  * @returns {Stream} Ready for gulp.
+  */
+modules.exports = function (options) {
+  var cache
 
-  var exists = function exists(it) {
-    return it !== undefined && it !== null;
-  };
+  let exists = it => it !== undefined && it !== null
 
-  function select() {
-    var parameters;
 
-    parameters = Array.prototype.slice.call(arguments, 0);
+  function select () {
+    var parameters
+
+    parameters = Array.prototype.slice.call(arguments, 0)
 
     return function (it) {
-      var object;
+      var object
 
-      object = {};
+      object = {}
 
-      parameters.forEach(function (key) {
-        object[key] = it[key];
-      });
+      parameters.forEach(key => {
+        object[key] = it[key]
+      })
 
-      return object;
-    };
+      return object
+    }
   }
 
-  function onwarn(it) {}
-  // util.log(it)
-
+  function onwarn (it) {
+    // util.log(it)
+  }
 
   /**
    * Get configuration with optionals+defualts for rollup.rollup({options}) method.
@@ -42,9 +73,9 @@ exports.default = function (options) {
    *
    * @returns {Object} Configuration for use with rollup.
    */
-  function getRollupConfiguration(it) {
-    var defaults;
-    var possible;
+  function getRollupConfiguration (it) {
+    var defaults
+    var possible
 
     defaults = {
       entry: {
@@ -52,13 +83,27 @@ exports.default = function (options) {
         contents: it.contents
       },
       cache: cache[it.path],
-      onwarn: onwarn,
-      plugins: [(0, _rollupPluginMemory2.default)()]
-    };
+      onwarn,
+      plugins: [
+        memory()
+      ]
+    }
 
-    possible = select('entry', 'cache', 'external', 'paths', 'onwarn', 'plugins', 'treeshake', 'acorn', 'context', 'moduleContext', 'legacy');
+    possible = select(
+      'entry',
+      'cache',
+      'external',
+      'paths',
+      'onwarn',
+      'plugins',
+      'treeshake',
+      'acorn',
+      'context',
+      'moduleContext',
+      'legacy'
+    )
 
-    return Object.assign(defaults, possible(options));
+    return Object.assign(defaults, possible(options))
   }
 
   /**
@@ -70,23 +115,36 @@ exports.default = function (options) {
    *
    * @returns {Object} Configuration for use with bundle.generate({options}).
    */
-  function getGenerateConfiguration(it) {
-    var defaults;
-    var possible;
+  function getGenerateConfiguration (it) {
+    var defaults
+    var possible
 
     // defaults that deviate from stock rollup
     defaults = {
       format: 'cjs'
+    }
 
-      // list of possible properties
-    };possible = select('format', 'exports', 'moduleId', 'moduleName', 'globals', 'indent', 'banner', 'footer', 'sourceMap', 'sourceMapFile', 'useStrict');
+    // list of possible properties
+    possible = select(
+      'format',
+      'exports',
+      'moduleId',
+      'moduleName',
+      'globals',
+      'indent',
+      'banner',
+      'footer',
+      'sourceMap',
+      'sourceMapFile',
+      'useStrict'
+    )
 
-    return Object.assign(defaults, possible(options));
+    return Object.assign(defaults, possible(options))
   }
 
-  cache = {};
+  cache = {}
 
-  return _through2.default.obj(obj
+  return through.obj(obj)
 
   /**
    * The through2 object pipe generator.
@@ -97,15 +155,15 @@ exports.default = function (options) {
    * @param {string} [encoding] - Ignored if file contains a Buffer.
    * @param {throughCallback} callback - Call this function when done processing.
    */
-  );function obj(file, encoding, callback) {
-    var configuration;
+  function obj (file, encoding, callback) {
+    var configuration
 
-    configuration = {};
+    configuration = {}
 
-    configuration.rollup = getRollupConfiguration(file);
-    configuration.generate = getGenerateConfiguration(file);
+    configuration.rollup = getRollupConfiguration(file)
+    configuration.generate = getGenerateConfiguration(file)
 
-    _rollup2.default.rollup(configuration.rollup).then(compile).catch(error
+    rollup.rollup(configuration.rollup).then(compile).catch(error)
 
     /**
      * Catch the error and push it down the pipeline.
@@ -114,12 +172,12 @@ exports.default = function (options) {
      *
      * @param {Error} it - Gulp Error.
      */
-    );function error(it) {
-      var error;
+    function error (it) {
+      var error
 
-      error = new _gulpUtil2.default.PluginError('rollup-stream', it.message);
+      error = new util.PluginError('rollup-stream', it.message)
 
-      callback(error);
+      callback(error)
     }
 
     /**
@@ -129,8 +187,8 @@ exports.default = function (options) {
      *
      * @param {Bundle} bundle - Rollup bundle.
      */
-    function compile(bundle) {
-      var result;
+    function compile (bundle) {
+      var result
 
       /**
        * If a sourcemap is provided than register it to the file.
@@ -139,18 +197,16 @@ exports.default = function (options) {
        *
        * @param {Object} it - Sourcemap.
        */
-      var trace = function trace(it) {
-        return exists(it) && (0, _vinylSourcemapsApply2.default)(file, it);
-      };
+      let trace = it => exists(it) && sourcemap(file, it)
 
-      result = bundle.generate(configuration.generate);
-      cache[file.path] = bundle;
+      result = bundle.generate(configuration.generate)
+      cache[file.path] = bundle
 
-      trace(result.map);
+      trace(result.map)
 
-      file.contents = Buffer.from(result.code);
+      file.contents = Buffer.from(result.code)
 
-      callback(null, file);
+      callback(null, file)
     }
     /**
      * @typedef Bundle
@@ -166,26 +222,4 @@ exports.default = function (options) {
    * @param {Error} [error]
    * @param {object} [output]
    */
-};
-
-var _through = require('through2');
-
-var _through2 = _interopRequireDefault(_through);
-
-var _rollup = require('rollup');
-
-var _rollup2 = _interopRequireDefault(_rollup);
-
-var _rollupPluginMemory = require('rollup-plugin-memory');
-
-var _rollupPluginMemory2 = _interopRequireDefault(_rollupPluginMemory);
-
-var _vinylSourcemapsApply = require('vinyl-sourcemaps-apply');
-
-var _vinylSourcemapsApply2 = _interopRequireDefault(_vinylSourcemapsApply);
-
-var _gulpUtil = require('gulp-util');
-
-var _gulpUtil2 = _interopRequireDefault(_gulpUtil);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+}
