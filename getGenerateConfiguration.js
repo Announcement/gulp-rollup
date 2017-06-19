@@ -14,7 +14,7 @@ module.exports = function (it, options) {
   var possible
   var format
 
-  format = 'cjs'
+  format = 'umd'
 
   // defaults that deviate from stock rollup
   defaults = {
