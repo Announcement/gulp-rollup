@@ -36,7 +36,7 @@ const util = require('gulp-util')
   *
   * @returns {Stream} Ready for gulp.
   */
-modules.exports = function (options) {
+module.exports = function (options) {
   var cache
 
   let exists = it => it !== undefined && it !== null
