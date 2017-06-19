@@ -58,7 +58,7 @@ gulp.task('rollup', () =>
 
 ### bundle.generate()
 
-- **format** is now `umd`
+- **format** is now `cjs`
 
 ## disclaimer
 
