@@ -50,7 +50,7 @@ module.exports = function (options) {
     rollup
       .rollup(configuration.rollup)
       .then(compile)
-      .catch(error)
+      .catch(error(callback))
 
     /**
      * Compile the bundle with rollup.

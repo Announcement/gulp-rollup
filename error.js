@@ -7,11 +7,13 @@ const util = require('gulp-util')
  *
  * @param {Error} it - Gulp Error.
  */
-module.exports = function (it) {
-  var error
+module.exports = function (callback) {
+  return function (it) {
+    var error
 
-  error = new util.PluginError('gulp-rollup', it.message)
+    error = new util.PluginError('gulp-rollup', it.message)
 
-  callback(error)
-  console.log(it)
+    callback(error)
+    console.log(it)
+  }
 }
