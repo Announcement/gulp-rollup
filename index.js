@@ -65,7 +65,7 @@ module.exports = function (options) {
       result = bundle.generate(configuration.generate)
       cache[file.path] = bundle
 
-      trace(result.map)
+      trace(result.map, file)
 
       file.contents = Buffer.from(result.code)
 

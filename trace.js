@@ -9,6 +9,6 @@ const exists = require('./exists')
  *
  * @param {Object} it - Sourcemap.
  */
-module.exports = function (it) {
+module.exports = function (it, file) {
   return exists(it) && sourcemap(file, it)
 }

@@ -12,20 +12,29 @@ const select = require('./select')
  *
  * @returns {Object} Configuration for use with rollup.
  */
-module.exports = function (it, cache, options) {
+module.exports = function (it, cacheObject, options) {
   var defaults
   var possible
+  var entry
+  var cache
+  var plugins
+
+  entry = {
+    path: it.path,
+    contents: it.contents
+  }
+
+  cache = cacheObject[it.path]
+
+  plugins = [
+    memory()
+  ]
 
   defaults = {
-    entry: {
-      path: it.path,
-      contents: it.contents
-    },
-    cache: cache[it.path],
+    entry,
+    cache,
     onwarn,
-    plugins: [
-      memory()
-    ]
+    plugins
   }
 
   possible = select(

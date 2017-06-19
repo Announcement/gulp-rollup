@@ -12,10 +12,13 @@ const select = require('./select')
 module.exports = function (it, options) {
   var defaults
   var possible
+  var format
+
+  format = 'cjs'
 
   // defaults that deviate from stock rollup
   defaults = {
-    format: 'cjs'
+    format
   }
 
   // list of possible properties

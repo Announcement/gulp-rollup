@@ -41,7 +41,6 @@ export default function (options) {
 
   let exists = it => it !== undefined && it !== null
 
-
   function select () {
     var parameters
 
