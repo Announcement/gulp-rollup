@@ -1,6 +1,6 @@
 {
   "name": "gulp-rollup",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "A gulp rollup extension good enough for me.",
   "main": "index.js",
   "directories": {},
