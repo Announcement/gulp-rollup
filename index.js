@@ -1,26 +1,20 @@
 var through = require('through2')
 var rollup = require('rollup')
-var memory = require('rollup-plugin-memory')
-var sourcemap = require('vinyl-sourcemaps-apply')
-var util = require('gulp-util')
 
 var error = require('./error')
-var onwarn = require('./onwarn')
-var select = require('./select')
-var exists = require('./exists')
 var trace = require('./trace')
 var getRollupConfiguration = require('./getRollupConfiguration')
 var getGenerateConfiguration = require('./getGenerateConfiguration')
 
- /**
-  * Generates a gulp-rollup pipeline.
-  *
-  * @function rollup
-  *
-  * @param {Object} options - Piped properly to rollup.rollup & bundle.generate.
-  *
-  * @returns {Stream} Ready for gulp.
-  */
+/**
+ * Generates a gulp-rollup pipeline.
+ *
+ * @function rollup
+ *
+ * @param {Object} options - Piped properly to rollup.rollup & bundle.generate.
+ *
+ * @returns {Stream} Ready for gulp.
+ */
 module.exports = function (options) {
   var cache
 
@@ -46,6 +40,7 @@ module.exports = function (options) {
     configuration.generate = getGenerateConfiguration(file, options)
 
     console.log(file)
+    console.log(configuration.rollup.entry)
 
     rollup
       .rollup(configuration.rollup)
