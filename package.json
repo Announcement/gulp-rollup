@@ -10,13 +10,14 @@
   "dependencies": {
     "gulp-util": "^3.0.8",
     "helpers": "github:Announcement/helpers",
-    "rollup": "^0.43.0",
     "rollup-plugin-memory": "^2.0.0",
     "through2": "^2.0.3",
     "vinyl-sourcemaps-apply": "^0.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.5.2"
+    "babel-preset-env": "^1.5.2",
+    "rollup": "^0.43.0",
+    "rollup-plugin-babel": "^2.7.1"
   }
 }

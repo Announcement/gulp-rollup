@@ -1,16 +1,16 @@
-const through = require('through2')
-const rollup = require('rollup')
-const memory = require('rollup-plugin-memory')
-const sourcemap = require('vinyl-sourcemaps-apply')
-const util = require('gulp-util')
+var through = require('through2')
+var rollup = require('rollup')
+var memory = require('rollup-plugin-memory')
+var sourcemap = require('vinyl-sourcemaps-apply')
+var util = require('gulp-util')
 
-const select = require('./select')
-const exists = require('./exists')
-const trace = require('./trace')
-const getRollupConfiguration = require('./getRollupConfiguration')
-const getGenerateConfiguration = require('./getGenerateConfiguration')
-const error = require('./error')
-const onwarn = require('./onwarn')
+var error = require('./error')
+var onwarn = require('./onwarn')
+var select = require('./select')
+var exists = require('./exists')
+var trace = require('./trace')
+var getRollupConfiguration = require('./getRollupConfiguration')
+var getGenerateConfiguration = require('./getGenerateConfiguration')
 
  /**
   * Generates a gulp-rollup pipeline.
