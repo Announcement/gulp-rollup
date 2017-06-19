@@ -54,8 +54,8 @@ module.exports = function (it, cacheObject, options) {
 
   object = Object.assign(defaults, options)
 
-  console.log(object)
-  console.log(possible(object))
+  // console.log(object)
+  // console.log(possible(object))
 
   return possible(object)
 }
