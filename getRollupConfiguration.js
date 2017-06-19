@@ -1,6 +1,6 @@
 const memory = require('rollup-plugin-memory')
 
-const onwarn = require('./onwarn.js')
+const onwarn = require('./onwarn')
 const select = require('./select')
 
 /**

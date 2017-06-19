@@ -10,7 +10,7 @@ const trace = require('./trace')
 const getRollupConfiguration = require('./getRollupConfiguration')
 const getGenerateConfiguration = require('./getGenerateConfiguration')
 const error = require('./error')
-const onwarn = require('./onawrn')
+const onwarn = require('./onwarn')
 
  /**
   * Generates a gulp-rollup pipeline.
