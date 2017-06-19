@@ -18,6 +18,7 @@ module.exports = function (it, cacheObject, options) {
   var entry
   var cache
   var plugins
+  var object
 
   entry = {
     path: it.path,
@@ -51,5 +52,10 @@ module.exports = function (it, cacheObject, options) {
     'legacy'
   )
 
-  return Object.assign(defaults, possible(options))
+  object = Object.assign(defaults, options)
+
+  console.log(object)
+  console.log(possible(object))
+
+  return possible(object)
 }
