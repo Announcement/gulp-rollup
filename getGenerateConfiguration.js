@@ -9,7 +9,7 @@ const select = require('./select')
  *
  * @returns {Object} Configuration for use with bundle.generate({options}).
  */
-module.exports = function (it) {
+module.exports = function (it, options) {
   var defaults
   var possible
 
