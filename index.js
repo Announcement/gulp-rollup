@@ -9,6 +9,8 @@ const exists = require('./exists')
 const trace = require('./trace')
 const getRollupConfiguration = require('./getRollupConfiguration')
 const getGenerateConfiguration = require('./getGenerateConfiguration')
+const error = require('./error')
+const onwarn = require('./onawrn')
 
  /**
   * Generates a gulp-rollup pipeline.
@@ -25,28 +27,6 @@ module.exports = function (options) {
   cache = {}
 
   return through.obj(obj)
-
-
-  function onwarn (it) {
-    console.log(it)
-    // util.log(it)
-  }
-
-  /**
-   * Catch the error and push it down the pipeline.
-   *
-   * @function catch
-   *
-   * @param {Error} it - Gulp Error.
-   */
-  function error (it) {
-    var error
-
-    error = new util.PluginError('gulp-rollup', it.message)
-
-    callback(error)
-    console.log(it)
-  }
 
   /**
    * The through2 object pipe generator.
