@@ -2,7 +2,7 @@
   "name": "gulp-rollup",
   "version": "3.4.0",
   "description": "A gulp rollup extension good enough for me.",
-  "main": "./source/index.js",
+  "main": "./bootstrap/index.js",
   "directories": {
     "lib": "./lib"
   },
