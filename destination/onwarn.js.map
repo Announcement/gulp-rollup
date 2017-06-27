@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["onwarn.js"],"sourcesContent":["import {log} from 'gulp-util'\r\n\r\nexport default function (it) {\r\n  log(it)\r\n}\r\n"],"file":"onwarn.js"}

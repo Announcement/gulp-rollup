@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Intended to be used with Array.prototype.map
  *
@@ -10,18 +12,24 @@
  *
  * @returns {Function} A callback function for reducing objects to similar objects with only specified properties.
  */
-module.exports = function (parameters) {
+var select = function (parameters) {
   return function (it) {
-    var object
+    var object;
 
-    object = {}
+    object = {};
 
-    parameters.forEach(forEach)
+    parameters.forEach(forEach);
 
     return object
 
     function forEach (key) {
-      object[key] = it[key]
+      if (it.hasOwnProperty(key)) {
+        object[key] = it[key];
+      }
     }
   }
-}
+};
+
+module.exports = select;
+
+//# sourceMappingURL=select.js.map

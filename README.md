@@ -9,23 +9,21 @@ Install this plugin with `npm i -D Announcement/gulp-rollup`
 This is a complete `gulpfile.js` which can be invoked with `gulp rollup`
 
 ~~~ javascript
-// var gulp = require('gulp')
-// var rollup = require('gulp-rollup')
-
 import gulp from 'gulp'
 import rollup from 'gulp-rollup'
+import babel from 'gulp-babel'
 
-let source = 'source/**/*.js'
-let destination = 'destination'
+let source = {source: 'source/**/*.js'}
+let destination = {rollup: 'destination'}
 let configuration = { rollup: {}, babel: {} }
 
 gulp.task('rollup', () =>
-  gulp.src(source)
+  gulp.src(source.rollup)
     .pipe(sourcemaps.init())
     .pipe(rollup(configuration.rollup))
     .pipe(babel(configuration.babel))
     .pipe(sourcemaps.write(destination.sourcemap))
-    .pipe(gulp.dest(destination))
+    .pipe(gulp.dest(destination.rollup))
 )
 ~~~
 
@@ -33,7 +31,7 @@ gulp.task('rollup', () =>
 
 - no input [source-map](https://github.com/mozilla/source-map)
 - input is not tested
-- code is *completely* **untested** in general
+- code is *completely* untested in general
 
 ## notes
 
@@ -63,8 +61,32 @@ gulp.task('rollup', () =>
 ## disclaimer
 
 -  this module's code might be a bit *over* formatted and verbose
+
 -  few things aren't **D.R.Y.** (the generators particularly)
+
 -  but over all the code should very *readable* and _relatively easy_ to maintain
+
+## developing
+
+[package.json](package.json) should tell you that the entry point is [index.js](index.js).
+
+### core dependencies
+
+- [getGenerateConfiguration.js](getGenerateConfiguration.js) handles `bundle.generate({configuration.generate})`
+
+- [getRollupConfiguration.js](getRollupConfiguration.js) handles `rollup.rollup({configuration.rollup})`.
+
+- [trace.js](trace.js) handles the **source-map**, or attempts to do so.
+
+- [error.js](error.js) contains all of the error handlers.
+
+### helper functions
+
+- [select.js](select.js) - used by get*configuration to filter properties.
+
+- [exists.js](exists.js) - used by trace.js to validate an input.
+
+The javascript should use node's current lts syntax. No import statements until v8 can properly [Implement Harmony Modules](https://bugs.chromium.org/p/v8/issues/detail?id=1569) as node depends on it.  
 
 ## changelog
 

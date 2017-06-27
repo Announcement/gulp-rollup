@@ -2,14 +2,21 @@
   "name": "gulp-rollup",
   "version": "3.4.0",
   "description": "A gulp rollup extension good enough for me.",
-  "main": "index.js",
-  "directories": {},
+  "main": "./source/index.js",
+  "directories": {
+    "lib": "./lib",
+  },
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp-util": "latest",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^4.3.11",
+    "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-memory": "latest",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "through2": "latest",
     "vinyl-sourcemaps-apply": "latest"
   },
@@ -23,6 +30,7 @@
     "eslint-plugin-promise": "latest",
     "eslint-plugin-standard": "^3.0.1",
     "rollup": "latest",
-    "rollup-plugin-babel": "latest"
+    "rollup-plugin-babel": "latest",
+    "rollup-plugin-inject": "^2.0.0"
   }
 }
