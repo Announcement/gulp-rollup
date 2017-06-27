@@ -4,16 +4,12 @@
   "description": "A gulp rollup extension good enough for me.",
   "main": "./source/index.js",
   "directories": {
-    "lib": "./lib",
+    "lib": "./lib"
   },
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-util": "^3.0.8",
-    "gulp-watch": "^4.3.11",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-memory": "latest",
     "rollup-plugin-node-resolve": "^3.0.0",
