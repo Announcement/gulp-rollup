@@ -1,16 +1,18 @@
 var gulp = require('gulp')
 var chalk = require('chalk')
-var watch = require('gulp-watch')
-var sourcemaps = require('gulp-sourcemaps')
-var rollup = require('./bootstrap/index.js')
+// var watch = require('gulp-watch')
+// var sourcemaps = require('gulp-sourcemaps')
+var rollup = require('./source/gulp-rollup')
 
 let source = {
   rollup: 'source/**.js'
 }
+
 let destination = {
   rollup: 'destination',
   sourcemap: '.'
 }
+
 let configuration = {
   rollup: {
     interop: false,
@@ -28,18 +30,21 @@ let configuration = {
 
 gulp.task('rollup', () =>
   gulp.src(source.rollup)
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     .pipe(rollup(configuration.rollup))
-    .pipe(sourcemaps.write(destination.sourcemap))
+    // .pipe(sourcemaps.write(destination.sourcemap))
     .pipe(gulp.dest(destination.rollup))
 )
-gulp.task('rollup:watch', () => {
-  watch(source.rollup)
-    .pipe(sourcemaps.init())
-    .pipe(rollup(configuration.rollup))
-    .pipe(sourcemaps.write(destination.sourcemap))
-    .pipe(gulp.dest(destination.rollup))
-})
+
+// gulp.task('rollup:watch', () => {
+//   watch(source.rollup)
+//     .pipe(sourcemaps.init())
+//     .pipe(rollup(configuration.rollup))
+//     .pipe(sourcemaps.write(destination.sourcemap))
+//     .pipe(gulp.dest(destination.rollup))
+// })
+
+gulp.task('default', ['rollup'])
 
 process.on('unhandledRejection', (reason, promise) => {
   console.log(reason.plugin, chalk.gray('>'), reason.message)

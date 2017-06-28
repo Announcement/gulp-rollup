@@ -11,6 +11,7 @@ var resolve = _interopDefault(require('rollup-plugin-node-resolve'));
 var commonjs = _interopDefault(require('rollup-plugin-commonjs'));
 
 var exists = function (it) {
+// module.exports = function (it) {
   return it !== undefined && it !== null
 };
 
@@ -245,5 +246,3 @@ var index = function (options) {
 };
 
 module.exports = index;
-
-//# sourceMappingURL=index.js.map

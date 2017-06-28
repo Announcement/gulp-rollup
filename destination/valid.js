@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var exists = function (it) {
+// module.exports = function (it) {
   return it !== undefined && it !== null
 };
 
@@ -24,5 +25,3 @@ function string (it) {
 
 exports.string = string;
 exports.array = array;
-
-//# sourceMappingURL=valid.js.map

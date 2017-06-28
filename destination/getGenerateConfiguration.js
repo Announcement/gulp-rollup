@@ -70,5 +70,3 @@ var getGenerateConfiguration = function (it, options) {
 };
 
 module.exports = getGenerateConfiguration;
-
-//# sourceMappingURL=getGenerateConfiguration.js.map

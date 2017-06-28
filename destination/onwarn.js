@@ -7,5 +7,3 @@ var onwarn = function (it) {
 };
 
 module.exports = onwarn;
-
-//# sourceMappingURL=onwarn.js.map

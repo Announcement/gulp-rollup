@@ -112,5 +112,3 @@ var getRollupConfiguration = function (it, cacheObject, options) {
 };
 
 module.exports = getRollupConfiguration;
-
-//# sourceMappingURL=getRollupConfiguration.js.map

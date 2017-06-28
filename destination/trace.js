@@ -5,6 +5,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var sourcemap = _interopDefault(require('vinyl-sourcemaps-apply'));
 
 var exists = function (it) {
+// module.exports = function (it) {
   return it !== undefined && it !== null
 };
 
@@ -20,5 +21,3 @@ var trace = function (it, file) {
 };
 
 module.exports = trace;
-
-//# sourceMappingURL=trace.js.map

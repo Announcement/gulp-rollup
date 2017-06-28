@@ -28,5 +28,3 @@ var error = function (callback) {
 };
 
 module.exports = error;
-
-//# sourceMappingURL=error.js.map

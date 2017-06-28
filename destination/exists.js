@@ -1,9 +1,6 @@
 'use strict';
 
-var exists = function (it) {
+// export default function (it) {
+module.exports = function (it) {
   return it !== undefined && it !== null
 };
-
-module.exports = exists;
-
-//# sourceMappingURL=exists.js.map

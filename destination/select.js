@@ -31,5 +31,3 @@ var select = function (parameters) {
 };
 
 module.exports = select;
-
-//# sourceMappingURL=select.js.map
