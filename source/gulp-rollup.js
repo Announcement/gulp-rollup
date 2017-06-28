@@ -49,12 +49,10 @@ module.exports = function (options) {
 
         error = new PluginError({
           plugin: 'gulp-rollup',
-          message: it.message
+          message: it.message || it
         })
 
         callback(error)
-
-        console.log('error')
       }
 
       function onwarn (it) {
