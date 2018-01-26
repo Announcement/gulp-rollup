@@ -1,97 +1,136 @@
-var through = require('through2')
-var memory = require('rollup-plugin-memory')
-var {rollup} = require('rollup')
+const PluginError = require('plugin-error');
+const through = require('through2')
 
-var {PluginError} = require('gulp-util')
+const rollup = require('rollup')
+const memory = require('rollup-plugin-memory')
+const virtual = require('rollup-plugin-virtual')
 
-module.exports = function (options) {
-  function gulpRollup (options) {
-    var stream
+const PLUGIN_NAME = 'gulp-rollup';
 
-    stream = through.obj(transformFunction)
+module.exports = gulpRollup;
 
-    return stream
+/**
+ * Configure a gulp plugin for usage in the pipeline.
+ * 
+ * @param {object} options - options to pass to rollup.
+ * 
+ * @returns {Function} A gulp pipeline-ready plugin.
+ */
+function gulpRollup (options) {
+  // is options even being used, because it doesn't seem like it?
+  //
+  // rollup-plugin-memory deprecated?
+  // rollup-plugin-virtual has no obvious way of simulating this behavior.
 
-    function transformFunction (chunk, encoding, callback) {
-      var path
-      var contents
-      var entry
-      var plugins
-      var format
-      var configuration
 
-      configuration = {}
+  let stream
 
-      path = chunk.path
-      contents = chunk.contents
-      format = 'cjs'
-      entry = {path, contents}
-      plugins = [memory()]
+  stream = through.obj(transformFunction)
 
-      configuration.rollup = {entry, plugins, onwarn}
-      configuration.generate = {format}
-
-      rollup(configuration.rollup)
-        .then(then)
-        .catch(error)
-
-      function then (bundle) {
-        var result
-
-        result = bundle.generate(configuration.generate)
-        chunk.contents = Buffer.from(result.code)
-
-        callback(null, chunk)
+  return stream
+  /**
+   * A stream transformation intended for use with the gulp pipeline.
+   * 
+   * @param {*} chunk 
+   * @param {*} encoding 
+   * @param {*} callback 
+   * 
+   * @returns {Promise} Resolve a bundled chunk, provided by rollup.
+   */
+  function transformFunction (chunk, encoding, callback) {
+    let path
+    let contents
+    let entry
+    let plugins
+    let format
+    let configuration
+  
+    configuration = {}
+  
+    path = chunk.path
+    contents = chunk.contents
+    format = 'cjs'
+  
+    entry = {
+      path,
+      contents
+    }
+  
+    plugins = [
+      memory()
+    ]
+  
+    configuration.rollup = {
+      entry,
+      plugins,
+      onwarn
+    }
+  
+    configuration.generate = {
+      format
+    }
+  
+    rollup.rollup(configuration.rollup)
+      .then(onFulfilled)
+      .catch(onRejected)
+  
+    function onFulfilled(bundle) {
+      let result
+  
+      result = bundle.generate(configuration.generate)
+      chunk.contents = Buffer.from(result.code)
+  
+      callback(null, chunk)
+    }
+  
+    function onRejected(it) {
+      let pluginError
+  
+      let plugin
+      let message
+  
+      plugin = PLUGIN_NAME
+      message = it.message || it
+  
+      pluginError = new PluginError(plugin, message)
+  
+      callback(pluginError)
+    }
+  
+    function onwarn(it) {
+      run([
+        missingCode,
+        unresolvedImport,
+        unusedExternalImport,
+        nonExistentExport,
+        other
+      ])
+  
+      function run(it) {
+        it.find(it => it())
       }
-
-      function error (it) {
-        var error
-
-        error = new PluginError({
-          plugin: 'gulp-rollup',
-          message: it.message || it
-        })
-
-        callback(error)
+  
+      function missingCode() {
+        return it.code === null || it.code === undefined
       }
-
-      function onwarn (it) {
-        run([
-          missingCode,
-          unresolvedImport,
-          unusedExternalImport,
-          nonExistentExport,
-          other
-        ])
-
-        function run (it) {
-          it.find(it => it())
-        }
-
-        function missingCode () {
-          return it.code === null || it.code === undefined
-        }
-
-        function unresolvedImport () {
-          return it.code === 'UNRESOLVED_IMPORT'
-        }
-
-        function unusedExternalImport () {
-          return it.code === 'UNUSED_EXTERNAL_IMPORT'
-        }
-
-        function nonExistentExport () {
-          return it.code === 'NON_EXISTENT_EXPORT'
-        }
-
-        function other () {
-          // rollup is too inconsistent and verbose with it's warnings to even consider this.
-          // additionally some things don't even have an option
-          // console.log(it.message)
-        }
+  
+      function unresolvedImport() {
+        return it.code === 'UNRESOLVED_IMPORT'
+      }
+  
+      function unusedExternalImport() {
+        return it.code === 'UNUSED_EXTERNAL_IMPORT'
+      }
+  
+      function nonExistentExport() {
+        return it.code === 'NON_EXISTENT_EXPORT'
+      }
+  
+      function other() {
+        // rollup is too inconsistent and verbose with it's warnings to even consider this.
+        // additionally some things don't even have an option
+        // console.log(it.message)
       }
     }
   }
-
-  return gulpRollup(options)
 }
